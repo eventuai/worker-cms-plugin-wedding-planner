@@ -1,0 +1,32 @@
+<div class="mb-4">
+  <a class="inline-block text-xs text-gray-500 mb-1 hover:text-indigo-700" href="{{ backHref }}">{{ "wedding_planner.views.task_form.back" | t }}</a>
+  <h1 class="text-2xl font-bold text-gray-900">{% if isNew %}{{ "wedding_planner.views.task_form.new_task" | t }}{% else %}{{ "wedding_planner.views.task_form.edit_task" | t }}{% endif %}</h1>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6" style="max-width:36rem">
+  <form method="post" action="{{ action }}">
+    <label class="block mb-3"><span class="block text-sm text-gray-700 mb-1">{{ "wedding_planner.views.task_form.task_title" | t }}</span><input class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" name="name" value="{{ name }}" required></label>
+    <label class="block mb-3"><span class="block text-sm text-gray-700 mb-1">{{ "wedding_planner.views.task_form.category" | t }}</span>
+      <select class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" name="category">
+        {% for category in categories %}<option value="{{ category.key }}"{% if category.selected %} selected{% endif %}>{{ category.labelKey | t }}</option>{% endfor %}
+      </select>
+    </label>
+    <div class="grid grid-cols-2 gap-3 mb-3">
+      <label class="block"><span class="block text-sm text-gray-700 mb-1">{{ "wedding_planner.views.task_form.due_month" | t }}</span><input class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" type="month" name="due" value="{{ due }}"></label>
+      <label class="block"><span class="block text-sm text-gray-700 mb-1">{{ "wedding_planner.views.task_form.due_day" | t }}</span><input class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" type="number" min="1" max="31" name="due_day" value="{{ dueDay }}"></label>
+    </div>
+    <div class="grid grid-cols-2 gap-3 mb-3">
+      <label class="block"><span class="block text-sm text-gray-700 mb-1">{{ "wedding_planner.views.task_form.time" | t }}</span><input class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" type="time" name="time" value="{{ time }}"></label>
+      <label class="block"><span class="block text-sm text-gray-700 mb-1">{{ "wedding_planner.views.task_form.vendor" | t }}</span><input class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" name="vendor" value="{{ vendor }}"></label>
+    </div>
+    <label class="block mb-3"><span class="block text-sm text-gray-700 mb-1">{{ "wedding_planner.views.task_form.notes" | t }}</span><textarea class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" name="notes" rows="3">{{ notes }}</textarea></label>
+    <label class="flex items-center gap-2 mb-4 text-sm text-gray-700"><input type="checkbox" name="done" value="yes"{% if done %} checked{% endif %}> {{ "wedding_planner.views.task_form.done" | t }}</label>
+    <button class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-transparent bg-indigo-600 px-4 text-sm font-semibold text-white hover:bg-indigo-700 cursor-pointer" type="submit">
+      {% if isNew %}{{ "wedding_planner.views.task_form.create" | t }}{% else %}{{ "wedding_planner.views.task_form.save" | t }}{% endif %}
+    </button>
+  </form>
+  {% if deleteAction != blank %}
+    <form method="post" action="{{ deleteAction }}" data-confirm="{{ "wedding_planner.views.task_form.confirm_delete" | t }}" class="mt-4">
+      <button class="text-sm text-red-600 hover:text-red-700 cursor-pointer" type="submit">{{ "wedding_planner.views.task_form.delete_task" | t }}</button>
+    </form>
+  {% endif %}
+</div>

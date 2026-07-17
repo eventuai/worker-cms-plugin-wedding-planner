@@ -1,0 +1,35 @@
+<div class="flex items-center justify-between gap-4 mb-4">
+  <div><h1 class="text-2xl font-bold text-gray-900">{{ "wedding_planner.views.weddings.title" | t }}</h1><p class="mt-1 text-sm text-gray-500">{{ "wedding_planner.views.weddings.subtitle" | t }}</p></div>
+  {% if newHref != blank %}<a class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-transparent bg-indigo-600 px-4 text-sm font-semibold text-white hover:bg-indigo-700"
+     title="{{ "wedding_planner.views.weddings.new_wedding" | t }}"
+     aria-label="{{ "wedding_planner.views.weddings.new_wedding" | t }}"
+     href="{{ newHref }}">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/icons.svg#plus"></use></svg>
+    <span class="hidden lg:inline">{{ "wedding_planner.views.weddings.new_wedding" | t }}</span>
+  </a>{% endif %}
+</div>
+{% if flash != blank %}<p class="mb-4 rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-gray-700">{{ flash | t }}</p>{% endif %}
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-x-auto">
+  <table class="w-full min-w-[560px] text-left relative">
+    <thead class="bg-gray-50 border-b border-gray-200"><tr>
+      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.weddings.name" | t }}</th>
+      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.weddings.date" | t }}</th>
+      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.weddings.days_to_go" | t }}</th>
+      <th class="px-6 py-3"></th>
+    </tr></thead>
+    <tbody class="divide-y divide-gray-100">
+      {% for wedding in weddings %}
+        <tr>
+          <td class="px-6 py-3 text-sm text-gray-700"><a class="text-indigo-600 font-medium hover:text-indigo-800" href="{{ wedding.dashboardHref }}">{{ wedding.name }}</a></td>
+          <td class="px-6 py-3 text-sm text-gray-500">{{ wedding.date }}</td>
+          <td class="px-6 py-3 text-sm text-gray-500">{% if wedding.daysToGo != null %}{{ wedding.daysToGo }} {{ "wedding_planner.views.weddings.days" | t }}{% endif %}</td>
+          <td class="px-6 py-3 text-right whitespace-nowrap">
+            {% if wedding.deleteHref != blank %}<a class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700" title="{{ "wedding_planner.views.weddings.delete_wedding" | t }}" aria-label="{{ "wedding_planner.views.weddings.delete_wedding" | t }}" href="{{ wedding.deleteHref }}"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/icons.svg#trash"></use></svg></a>{% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4" class="px-6 py-10 text-center text-sm text-gray-400">{{ "wedding_planner.views.weddings.no_weddings_yet" | t }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

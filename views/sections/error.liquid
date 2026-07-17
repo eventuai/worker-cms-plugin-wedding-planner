@@ -1,0 +1,7 @@
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6" style="max-width:36rem">
+  <h1 class="text-2xl font-bold text-gray-900 mb-2">{% if heading != blank %}{{ heading }}{% else %}{{ "wedding_planner.views.error.title" | t }}{% endif %}</h1>
+  <p class="text-sm text-gray-700 mb-3">{{ message }}</p>
+  {% if showConfig %}
+    <p class="text-xs text-gray-500">{{ "wedding_planner.views.error.config_hint" | t }}</p>
+  {% endif %}
+</div>

@@ -1,0 +1,203 @@
+{
+  "plugins": {
+    "wedding-planner": {
+      "nav": {
+        "weddings": "Weddings"
+      }
+    }
+  },
+  "wedding_planner": {
+    "nav": {
+      "weddings_back": "← Weddings",
+      "checklist": "Checklist",
+      "budget": "Budget",
+      "rundown": "Rundown"
+    },
+    "categories": {
+      "gown": "Gown & attire",
+      "bigday": "Big day",
+      "photo": "Photography",
+      "beauty": "Makeup & beauty",
+      "venue": "Banquet venue",
+      "rings": "Rings & jewellery",
+      "honeymoon": "Honeymoon",
+      "newhome": "New home",
+      "services": "Wedding services",
+      "others": "Others"
+    },
+    "scopes": {
+      "registry": "Civil ceremony",
+      "church": "Church ceremony",
+      "overseas": "Overseas wedding",
+      "banquet": "Chinese banquet",
+      "honeymoon": "Honeymoon",
+      "newhome": "New home"
+    },
+    "flash": {
+      "wedding_created": "Wedding created with its checklist and budget.",
+      "wedding_deleted": "Wedding deleted.",
+      "task_created": "Task added.",
+      "task_updated": "Task updated.",
+      "task_deleted": "Task deleted.",
+      "budget_total_updated": "Total budget updated.",
+      "budget_item_created": "Budget item added.",
+      "budget_item_updated": "Budget item updated.",
+      "budget_item_deleted": "Budget item deleted.",
+      "rundown_generated": "Rundown generated. Adjust the times and items to fit your day.",
+      "rundown_item_created": "Rundown item added.",
+      "rundown_item_updated": "Rundown item updated.",
+      "rundown_item_deleted": "Rundown item deleted."
+    },
+    "views": {
+      "weddings": {
+        "title": "Weddings",
+        "subtitle": "Plan each wedding's checklist, budget and big-day rundown.",
+        "new_wedding": "New wedding",
+        "name": "Couple",
+        "date": "Wedding date",
+        "days_to_go": "Days to go",
+        "days": "days",
+        "no_weddings_yet": "No weddings yet.",
+        "delete_wedding": "Delete wedding"
+      },
+      "wedding_new": {
+        "back": "← Weddings",
+        "title": "New wedding",
+        "subtitle": "Tell us about the wedding and we will prepare a countdown checklist and budget for you.",
+        "partner1": "Partner 1 name",
+        "partner2": "Partner 2 name",
+        "wedding_date": "Wedding date",
+        "checklist_language": "Checklist language",
+        "language_en": "English",
+        "language_zh": "繁體中文",
+        "scope_question": "Does your wedding include the following?",
+        "scope_hint": "Select all that apply — they tailor the seeded checklist, budget and rundown.",
+        "total_budget": "Total wedding budget (optional)",
+        "budget_hint": "Leave blank to use the sum of the budget items.",
+        "seed_label": "Seed the countdown checklist and preset budget",
+        "seed_hint": "About 50 Hong Kong wedding tasks scheduled from 12 months out, plus a preset budget breakdown. Everything stays editable.",
+        "create": "Create wedding"
+      },
+      "wedding_dashboard": {
+        "days_to_go_prefix": "",
+        "days_to_go_suffix": "days to the big day",
+        "edit": "Edit",
+        "delete": "Delete",
+        "tasks_done": "tasks completed",
+        "paid_of": "paid of",
+        "remaining": "remaining",
+        "rundown_items": "rundown items",
+        "upcoming_tasks": "Upcoming tasks",
+        "view_all": "View checklist",
+        "no_upcoming": "No upcoming tasks — everything is done!"
+      },
+      "wedding_delete": {
+        "back": "← Back",
+        "title": "Delete",
+        "warning": "This moves the wedding and everything below to trash:",
+        "tasks": "checklist task(s)",
+        "budget_items": "budget item(s)",
+        "rundown_items": "rundown item(s)",
+        "confirm_prompt": "Delete this wedding and all of its checklist, budget and rundown items?",
+        "confirm": "Delete wedding",
+        "cancel": "Cancel"
+      },
+      "checklist": {
+        "title": "Countdown checklist",
+        "progress": "Completed",
+        "new_task": "New task",
+        "view_by_date": "By date",
+        "view_by_category": "By category",
+        "all": "All",
+        "todo": "To do",
+        "done": "Done",
+        "completed": "Completed",
+        "drag_to_reorder": "Drag to reorder",
+        "mark_done": "Mark as done",
+        "mark_undone": "Mark as not done",
+        "confirm_delete": "Delete this task?",
+        "delete_task": "Delete task",
+        "no_tasks": "No tasks match this filter.",
+        "all_categories": "All categories",
+        "no_due_month": "No month set"
+      },
+      "task_form": {
+        "back": "← Checklist",
+        "new_task": "New task",
+        "edit_task": "Edit task",
+        "task_title": "Task",
+        "category": "Category",
+        "due_month": "Due month",
+        "due_day": "Day (optional)",
+        "time": "Time (optional)",
+        "vendor": "Vendor (optional)",
+        "notes": "Notes",
+        "done": "Completed",
+        "create": "Add task",
+        "save": "Save",
+        "confirm_delete": "Delete this task?",
+        "delete_task": "Delete this task"
+      },
+      "budget": {
+        "title": "Wedding budget",
+        "new_item": "New budget item",
+        "spent": "Paid",
+        "total_budget": "Total budget",
+        "remaining": "Remaining",
+        "unpaid": "Unpaid",
+        "set_total": "Set total budget",
+        "save": "Save",
+        "item": "Item",
+        "budget": "Budget",
+        "paid": "Paid",
+        "confirm_delete": "Delete this budget item?",
+        "delete_item": "Delete item",
+        "no_items": "No budget items yet."
+      },
+      "budget_item_form": {
+        "back": "← Budget",
+        "new_item": "New budget item",
+        "edit_item": "Edit budget item",
+        "item_name": "Item",
+        "category": "Category",
+        "budget": "Budget",
+        "paid": "Paid",
+        "notes": "Notes",
+        "create": "Add item",
+        "save": "Save",
+        "confirm_delete": "Delete this budget item?",
+        "delete_item": "Delete this item"
+      },
+      "rundown": {
+        "title": "Big-day rundown",
+        "subtitle": "The run sheet for the wedding day — times, items and owners.",
+        "new_item": "New rundown item",
+        "no_items": "No rundown yet. Generate one from the template and adjust it to your day.",
+        "generate": "Generate rundown",
+        "generate_hint": "Creates a typical Hong Kong wedding-day schedule filtered to your wedding's scope.",
+        "time": "Time",
+        "item": "Item",
+        "owner": "Owner",
+        "confirm_delete": "Delete this rundown item?",
+        "delete_item": "Delete item"
+      },
+      "rundown_item_form": {
+        "back": "← Rundown",
+        "new_item": "New rundown item",
+        "edit_item": "Edit rundown item",
+        "item_name": "Item",
+        "time": "Time",
+        "owner": "Owner (optional)",
+        "notes": "Notes",
+        "create": "Add item",
+        "save": "Save",
+        "confirm_delete": "Delete this rundown item?",
+        "delete_item": "Delete this item"
+      },
+      "error": {
+        "title": "Something went wrong",
+        "config_hint": "Check that CMS_URL and PLUGIN_SECRET are configured for this plugin Worker and match the CMS's plugin registration."
+      }
+    }
+  }
+}

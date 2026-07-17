@@ -1,0 +1,4 @@
+{
+  "sections": { "main": { "type": "wedding-delete" } },
+  "order": ["main"]
+}

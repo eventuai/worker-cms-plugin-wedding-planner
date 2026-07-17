@@ -1,0 +1,203 @@
+{
+  "plugins": {
+    "wedding-planner": {
+      "nav": {
+        "weddings": "婚禮"
+      }
+    }
+  },
+  "wedding_planner": {
+    "nav": {
+      "weddings_back": "← 婚禮",
+      "checklist": "倒數日程",
+      "budget": "婚禮預算",
+      "rundown": "Rundown"
+    },
+    "categories": {
+      "gown": "婚紗禮服",
+      "bigday": "婚禮當日",
+      "photo": "婚紗攝影",
+      "beauty": "化妝美容",
+      "venue": "婚宴場地",
+      "rings": "婚戒首飾",
+      "honeymoon": "蜜月婚禮",
+      "newhome": "新居",
+      "services": "婚禮服務",
+      "others": "其他/活動"
+    },
+    "scopes": {
+      "registry": "註冊證婚",
+      "church": "教堂行禮",
+      "overseas": "海外婚禮",
+      "banquet": "擺酒",
+      "honeymoon": "蜜月",
+      "newhome": "新居"
+    },
+    "flash": {
+      "wedding_created": "已建立婚禮，並準備好倒數日程表及預算表。",
+      "wedding_deleted": "婚禮已刪除。",
+      "task_created": "已新增事項。",
+      "task_updated": "事項已更新。",
+      "task_deleted": "事項已刪除。",
+      "budget_total_updated": "婚禮總預算已更新。",
+      "budget_item_created": "已新增預算項目。",
+      "budget_item_updated": "預算項目已更新。",
+      "budget_item_deleted": "預算項目已刪除。",
+      "rundown_generated": "Rundown 已生成，可按你的婚禮調整時間及項目。",
+      "rundown_item_created": "已新增流程項目。",
+      "rundown_item_updated": "流程項目已更新。",
+      "rundown_item_deleted": "流程項目已刪除。"
+    },
+    "views": {
+      "weddings": {
+        "title": "婚禮",
+        "subtitle": "管理每個婚禮的倒數日程、預算及當日流程。",
+        "new_wedding": "新增婚禮",
+        "name": "新人",
+        "date": "婚禮日期",
+        "days_to_go": "尚餘日數",
+        "days": "日",
+        "no_weddings_yet": "未有婚禮。",
+        "delete_wedding": "刪除婚禮"
+      },
+      "wedding_new": {
+        "back": "← 婚禮",
+        "title": "新增婚禮",
+        "subtitle": "請填寫關於你的婚禮的資料，我們會為你準備倒數日程表及預算表。",
+        "partner1": "新人一姓名",
+        "partner2": "新人二姓名",
+        "wedding_date": "婚禮日期",
+        "checklist_language": "日程表語言",
+        "language_en": "English",
+        "language_zh": "繁體中文",
+        "scope_question": "你的婚禮有包括以下項目嗎？",
+        "scope_hint": "可選擇多個項目——會用作篩選預設日程、預算及流程。",
+        "total_budget": "婚禮總預算（可留空）",
+        "budget_hint": "留空則以各預算項目合計為總預算。",
+        "seed_label": "自動建立倒數日程表及預設預算",
+        "seed_hint": "預設約 50 項香港婚禮任務（由 12 個月前開始倒數）及預算分類，全部可自行修改。",
+        "create": "建立婚禮"
+      },
+      "wedding_dashboard": {
+        "days_to_go_prefix": "距離大喜日子尚餘",
+        "days_to_go_suffix": "日",
+        "edit": "編輯",
+        "delete": "刪除",
+        "tasks_done": "完成事項",
+        "paid_of": "已付，總預算",
+        "remaining": "剩餘",
+        "rundown_items": "流程項目",
+        "upcoming_tasks": "即將到期事項",
+        "view_all": "查看倒數日程",
+        "no_upcoming": "沒有待辦事項——全部完成！"
+      },
+      "wedding_delete": {
+        "back": "← 返回",
+        "title": "刪除",
+        "warning": "以下項目將連同婚禮一併移至回收站：",
+        "tasks": "個日程事項",
+        "budget_items": "個預算項目",
+        "rundown_items": "個流程項目",
+        "confirm_prompt": "確定刪除此婚禮及其所有日程、預算及流程項目？",
+        "confirm": "刪除婚禮",
+        "cancel": "取消"
+      },
+      "checklist": {
+        "title": "倒數日程表",
+        "progress": "完成事項",
+        "new_task": "新增事項",
+        "view_by_date": "按日期顯示",
+        "view_by_category": "按分類顯示",
+        "all": "所有事項",
+        "todo": "未完成",
+        "done": "已完成",
+        "completed": "完成事項",
+        "drag_to_reorder": "拖曳以編輯次序",
+        "mark_done": "標示為完成",
+        "mark_undone": "標示為未完成",
+        "confirm_delete": "確定刪除此事項？",
+        "delete_task": "刪除事項",
+        "no_tasks": "沒有符合篩選的事項。",
+        "all_categories": "所有分類",
+        "no_due_month": "未設定月份"
+      },
+      "task_form": {
+        "back": "← 倒數日程",
+        "new_task": "新增事項",
+        "edit_task": "編輯事項",
+        "task_title": "事項標題",
+        "category": "類別",
+        "due_month": "日期（年/月）",
+        "due_day": "日（可留空）",
+        "time": "時間（可留空）",
+        "vendor": "商戶（可留空）",
+        "notes": "備註",
+        "done": "已完成",
+        "create": "新增",
+        "save": "儲存",
+        "confirm_delete": "確定刪除此事項？",
+        "delete_task": "刪除此事項"
+      },
+      "budget": {
+        "title": "婚禮預算",
+        "new_item": "新增預算項目",
+        "spent": "已用",
+        "total_budget": "婚禮預算",
+        "remaining": "剩餘",
+        "unpaid": "未付金額",
+        "set_total": "設定總預算",
+        "save": "儲存",
+        "item": "項目",
+        "budget": "預算",
+        "paid": "已付金額",
+        "confirm_delete": "確定刪除此預算項目？",
+        "delete_item": "刪除項目",
+        "no_items": "未有預算項目。"
+      },
+      "budget_item_form": {
+        "back": "← 婚禮預算",
+        "new_item": "新增預算項目",
+        "edit_item": "編輯預算項目",
+        "item_name": "項目",
+        "category": "類別",
+        "budget": "預算",
+        "paid": "已付金額",
+        "notes": "備註",
+        "create": "新增",
+        "save": "儲存",
+        "confirm_delete": "確定刪除此預算項目？",
+        "delete_item": "刪除此項目"
+      },
+      "rundown": {
+        "title": "婚禮當日 Rundown",
+        "subtitle": "婚禮當日流程表——時間、項目及負責人。",
+        "new_item": "新增流程項目",
+        "no_items": "未有流程。可一鍵生成範本，再按你的婚禮調整。",
+        "generate": "一鍵生成 Rundown",
+        "generate_hint": "按你婚禮包括的項目，生成典型香港婚禮當日流程。",
+        "time": "時間",
+        "item": "項目",
+        "owner": "負責人",
+        "confirm_delete": "確定刪除此流程項目？",
+        "delete_item": "刪除項目"
+      },
+      "rundown_item_form": {
+        "back": "← Rundown",
+        "new_item": "新增流程項目",
+        "edit_item": "編輯流程項目",
+        "item_name": "項目",
+        "time": "時間",
+        "owner": "負責人（可留空）",
+        "notes": "備註",
+        "create": "新增",
+        "save": "儲存",
+        "confirm_delete": "確定刪除此流程項目？",
+        "delete_item": "刪除此項目"
+      },
+      "error": {
+        "title": "發生錯誤",
+        "config_hint": "請檢查此插件 Worker 的 CMS_URL 及 PLUGIN_SECRET 是否已設定並與 CMS 的插件登記相符。"
+      }
+    }
+  }
+}

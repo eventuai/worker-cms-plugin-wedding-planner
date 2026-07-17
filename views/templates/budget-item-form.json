@@ -1,0 +1,4 @@
+{
+  "sections": { "main": { "type": "budget-item-form" } },
+  "order": ["main"]
+}

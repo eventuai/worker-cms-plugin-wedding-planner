@@ -1,0 +1,78 @@
+<div class="flex items-center justify-between gap-4 mb-4">
+  <div>
+    <a class="inline-block text-xs text-gray-500 mb-1 hover:text-indigo-700" href="{{ weddingHref }}">{{ weddingName }}</a>
+    <h1 class="text-2xl font-bold text-gray-900">{{ "wedding_planner.views.checklist.title" | t }}</h1>
+    <p class="mt-1 text-sm text-gray-500">{{ "wedding_planner.views.checklist.progress" | t }}: {{ taskDone }} / {{ taskTotal }}{% if daysToGo != null %} · <span class="font-semibold text-rose-700">{{ "wedding_planner.views.wedding_dashboard.days_to_go_prefix" | t }} {{ daysToGo }} {{ "wedding_planner.views.wedding_dashboard.days_to_go_suffix" | t }}</span>{% endif %}</p>
+  </div>
+  {% if newHref != blank %}<a class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-transparent bg-indigo-600 px-4 text-sm font-semibold text-white hover:bg-indigo-700"
+     title="{{ "wedding_planner.views.checklist.new_task" | t }}" aria-label="{{ "wedding_planner.views.checklist.new_task" | t }}" href="{{ newHref }}">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/icons.svg#plus"></use></svg>
+    <span class="hidden lg:inline">{{ "wedding_planner.views.checklist.new_task" | t }}</span>
+  </a>{% endif %}
+</div>
+{% if flash != blank %}<p class="mb-4 rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-gray-700">{{ flash | t }}</p>{% endif %}
+<nav class="flex flex-wrap items-center gap-2 mb-3 text-sm">
+  <a class="{% if viewMode == 'date' %}font-semibold text-indigo-600{% else %}text-gray-500 hover:text-indigo-700{% endif %}" href="{{ viewDateHref }}">{{ "wedding_planner.views.checklist.view_by_date" | t }}</a>
+  <span class="text-gray-300">·</span>
+  <a class="{% if viewMode == 'category' %}font-semibold text-indigo-600{% else %}text-gray-500 hover:text-indigo-700{% endif %}" href="{{ viewCategoryHref }}">{{ "wedding_planner.views.checklist.view_by_category" | t }}</a>
+  <span class="text-gray-300">|</span>
+  <a class="{% if stateFilter == 'all' %}font-semibold text-indigo-600{% else %}text-gray-500 hover:text-indigo-700{% endif %}" href="{{ stateHrefs.all }}">{{ "wedding_planner.views.checklist.all" | t }}</a>
+  <a class="{% if stateFilter == 'todo' %}font-semibold text-indigo-600{% else %}text-gray-500 hover:text-indigo-700{% endif %}" href="{{ stateHrefs.todo }}">{{ "wedding_planner.views.checklist.todo" | t }}</a>
+  <a class="{% if stateFilter == 'done' %}font-semibold text-indigo-600{% else %}text-gray-500 hover:text-indigo-700{% endif %}" href="{{ stateHrefs.done }}">{{ "wedding_planner.views.checklist.done" | t }}</a>
+</nav>
+<nav class="flex flex-wrap items-center gap-2 mb-4 text-xs">
+  {% for filter in categoryFilters %}
+    <a class="inline-flex items-center gap-1 rounded-full border px-3 py-1 {% if filter.selected %}border-indigo-600 text-indigo-600 font-semibold{% else %}border-gray-200 text-gray-500 hover:text-indigo-700{% endif %}" href="{{ filter.href }}">
+      {% if filter.color != blank %}<span class="inline-block rounded-full" style="width:8px;height:8px;background-color:{{ filter.color }}"></span>{% endif %}
+      {% if filter.labelKey != blank %}{{ filter.labelKey | t }}{% endif %}
+    </a>
+  {% endfor %}
+</nav>
+{% for group in groups %}
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-x-auto mb-4">
+    <div class="flex items-center justify-between px-6 py-3 bg-gray-50 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900">{% if group.labelKey != blank %}{{ group.labelKey | t }}{% else %}{{ group.label }}{% endif %}</h2>
+      <span class="text-xs text-gray-500">{{ "wedding_planner.views.checklist.completed" | t }}: {{ group.done }} / {{ group.total }}</span>
+    </div>
+    <table class="w-full min-w-[560px] text-left relative"{% if reorderAction != blank %} data-reorder="{{ reorderAction }}" data-reorder-key="updates" data-reorder-mode="weight" data-reorder-handle-only{% endif %}>
+      <tbody class="divide-y divide-gray-100">
+        {% for task in group.tasks %}
+          <tr data-id="{{ task.id }}">
+            {% if reorderAction != blank %}<td class="ps-4 py-3 text-gray-400 w-10" data-reorder-handle title="{{ "wedding_planner.views.checklist.drag_to_reorder" | t }}" style="cursor:grab"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M9 5h.01M9 12h.01M9 19h.01M15 5h.01M15 12h.01M15 19h.01" /></svg></td>{% endif %}
+            <td class="px-4 py-3 w-10">
+              {% if task.toggleAction != blank %}
+                <form method="post" action="{{ task.toggleAction }}">
+                  <button class="inline-flex h-6 w-6 items-center justify-center rounded-full border cursor-pointer {% if task.done %}border-transparent text-white{% else %}border-gray-300 text-white hover:bg-gray-50{% endif %}" {% if task.done %}style="background-color:#059669"{% endif %} type="submit"
+                    title="{% if task.done %}{{ "wedding_planner.views.checklist.mark_undone" | t }}{% else %}{{ "wedding_planner.views.checklist.mark_done" | t }}{% endif %}"
+                    aria-label="{% if task.done %}{{ "wedding_planner.views.checklist.mark_undone" | t }}{% else %}{{ "wedding_planner.views.checklist.mark_done" | t }}{% endif %}">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  </button>
+                </form>
+              {% elsif task.done %}
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full text-white" style="background-color:#059669"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg></span>
+              {% endif %}
+            </td>
+            <td class="px-4 py-3 text-sm {% if task.done %}text-gray-400{% else %}text-gray-700{% endif %}">
+              {% if task.editHref != blank %}<a class="hover:text-indigo-700" href="{{ task.editHref }}">{{ task.name }}</a>{% else %}{{ task.name }}{% endif %}
+              {% if task.notes != blank %}<p class="text-xs text-gray-400 mt-1">{{ task.notes }}</p>{% endif %}
+            </td>
+            <td class="px-4 py-3 text-xs whitespace-nowrap">
+              <span class="inline-flex items-center gap-1 text-gray-500"><span class="inline-block rounded-full" style="width:8px;height:8px;background-color:{{ task.categoryColor }}"></span>{{ task.categoryLabelKey | t }}</span>
+            </td>
+            <td class="px-4 py-3 text-xs text-rose-700 whitespace-nowrap">{{ task.dueLabel }}{% if task.timeLabel != blank %} {{ task.timeLabel }}{% endif %}</td>
+            <td class="px-4 py-3 text-xs text-gray-500 whitespace-nowrap">{{ task.vendor }}</td>
+            <td class="px-4 py-3 text-right whitespace-nowrap">
+              {% if task.deleteAction != blank %}
+                <form method="post" action="{{ task.deleteAction }}" data-confirm="{{ "wedding_planner.views.checklist.confirm_delete" | t }}" class="inline-block">
+                  <button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 cursor-pointer" type="submit" title="{{ "wedding_planner.views.checklist.delete_task" | t }}" aria-label="{{ "wedding_planner.views.checklist.delete_task" | t }}"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/icons.svg#trash"></use></svg></button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-10 text-center text-sm text-gray-400">{{ "wedding_planner.views.checklist.no_tasks" | t }}</div>
+{% endfor %}

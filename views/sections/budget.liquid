@@ -1,0 +1,74 @@
+<div class="flex items-center justify-between gap-4 mb-4">
+  <div>
+    <a class="inline-block text-xs text-gray-500 mb-1 hover:text-indigo-700" href="{{ weddingHref }}">{{ weddingName }}</a>
+    <h1 class="text-2xl font-bold text-gray-900">{{ "wedding_planner.views.budget.title" | t }}</h1>
+  </div>
+  {% if newHref != blank %}<a class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-transparent bg-indigo-600 px-4 text-sm font-semibold text-white hover:bg-indigo-700"
+     title="{{ "wedding_planner.views.budget.new_item" | t }}" aria-label="{{ "wedding_planner.views.budget.new_item" | t }}" href="{{ newHref }}">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/icons.svg#plus"></use></svg>
+    <span class="hidden lg:inline">{{ "wedding_planner.views.budget.new_item" | t }}</span>
+  </a>{% endif %}
+</div>
+{% if flash != blank %}<p class="mb-4 rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-gray-700">{{ flash | t }}</p>{% endif %}
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-4">
+  <div class="flex flex-wrap items-center gap-6">
+    <svg width="140" height="140" viewBox="0 0 140 140" role="img" aria-label="{{ "wedding_planner.views.budget.spent" | t }} {{ spentPercent }}%">
+      <circle cx="70" cy="70" r="54" fill="none" stroke="#e5e7eb" stroke-width="14"></circle>
+      <circle cx="70" cy="70" r="54" fill="none" stroke="#059669" stroke-width="14" stroke-linecap="round"
+              stroke-dasharray="{{ donutDash }}" transform="rotate(-90 70 70)"></circle>
+      <text x="70" y="64" text-anchor="middle" style="font-size:12px;fill:#6b7280">{{ "wedding_planner.views.budget.spent" | t }}</text>
+      <text x="70" y="84" text-anchor="middle" style="font-size:18px;font-weight:700;fill:#111827">{{ spentPercent }}%</text>
+    </svg>
+    <div class="grid grid-cols-2 gap-x-8 gap-y-3">
+      <div><p class="text-xs text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.total_budget" | t }}</p><p class="text-xl font-bold text-gray-900">$ {{ totalBudget }}</p></div>
+      <div><p class="text-xs text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.spent" | t }}</p><p class="text-xl font-bold" style="color:#059669">$ {{ totalPaid }}</p></div>
+      <div><p class="text-xs text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.remaining" | t }}</p><p class="text-xl font-bold text-gray-900">$ {{ totalRemaining }}</p></div>
+      <div><p class="text-xs text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.unpaid" | t }}</p><p class="text-xl font-bold text-rose-700">$ {{ totalUnpaid }}</p></div>
+    </div>
+    {% if totalAction != blank %}
+      <form method="post" action="{{ totalAction }}" class="flex items-end gap-2">
+        <label class="block"><span class="block text-xs text-gray-500 mb-1">{{ "wedding_planner.views.budget.set_total" | t }}</span><input class="block px-3 py-2 border border-gray-300 rounded-lg text-sm" style="width:10rem" type="number" min="0" step="1" name="budget_total" value="{{ totalBudgetRaw }}"></label>
+        <button class="inline-flex h-9 items-center justify-center rounded-lg border border-gray-300 px-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer" type="submit">{{ "wedding_planner.views.budget.save" | t }}</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% for group in groups %}
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-x-auto mb-4">
+    <div class="flex items-center justify-between px-6 py-3 bg-gray-50 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 inline-flex items-center gap-2"><span class="inline-block rounded-full" style="width:10px;height:10px;background-color:{{ group.color }}"></span>{{ group.labelKey | t }}</h2>
+      <span class="text-xs text-gray-500">$ {{ group.paid }} / $ {{ group.budget }}</span>
+    </div>
+    <table class="w-full min-w-[560px] text-left relative">
+      <thead class="bg-gray-50 border-b border-gray-200"><tr>
+        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.item" | t }}</th>
+        <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.budget" | t }}</th>
+        <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.paid" | t }}</th>
+        <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">{{ "wedding_planner.views.budget.unpaid" | t }}</th>
+        <th class="px-6 py-3"></th>
+      </tr></thead>
+      <tbody class="divide-y divide-gray-100">
+        {% for item in group.items %}
+          <tr>
+            <td class="px-6 py-3 text-sm text-gray-700">
+              {% if item.editHref != blank %}<a class="hover:text-indigo-700" href="{{ item.editHref }}">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %}
+              {% if item.notes != blank %}<p class="text-xs text-gray-400 mt-1">{{ item.notes }}</p>{% endif %}
+            </td>
+            <td class="px-6 py-3 text-sm text-gray-700 text-right whitespace-nowrap">$ {{ item.budget }}</td>
+            <td class="px-6 py-3 text-sm text-right whitespace-nowrap" style="color:#059669">$ {{ item.paid }}</td>
+            <td class="px-6 py-3 text-sm text-rose-700 text-right whitespace-nowrap">$ {{ item.unpaid }}</td>
+            <td class="px-6 py-3 text-right whitespace-nowrap">
+              {% if item.deleteAction != blank %}
+                <form method="post" action="{{ item.deleteAction }}" data-confirm="{{ "wedding_planner.views.budget.confirm_delete" | t }}" class="inline-block">
+                  <button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700 cursor-pointer" type="submit" title="{{ "wedding_planner.views.budget.delete_item" | t }}" aria-label="{{ "wedding_planner.views.budget.delete_item" | t }}"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><use href="/assets/icons.svg#trash"></use></svg></button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-10 text-center text-sm text-gray-400">{{ "wedding_planner.views.budget.no_items" | t }}</div>
+{% endfor %}

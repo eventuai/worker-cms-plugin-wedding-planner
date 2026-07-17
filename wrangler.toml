@@ -1,0 +1,37 @@
+name = "worker-cms-plugin-wedding-planner"
+main = "src/index.ts"
+compatibility_date = "2026-03-24"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+# Admin view templates (LiquidJS + JSON templates, mirroring the CMS). The Worker
+# runs first for every request and reads these internally via the VIEWS binding,
+# so the files are never served publicly.
+[assets]
+directory = "./views"
+binding = "VIEWS"
+run_worker_first = true
+
+[version_metadata]
+binding = "CF_VERSION_METADATA"
+
+# The CMS forwards this secret on every hook / admin call, and this plugin sends
+# it back on every Plugin API write-back call. Set it to THIS plugin's dedicated
+# secret — shown in the CMS admin under Plugins → (this plugin) → Edit →
+# Shared secret:
+#   wrangler secret put PLUGIN_SECRET
+
+# ── Multi-tenant mode (several CMS hosts → this one plugin) ────────────────────
+# Bind a KV namespace and add one record per connected CMS; CMS_URL/PLUGIN_SECRET
+# then become optional (they form a legacy fallback tenant if kept):
+#   wrangler kv namespace create cms-plugin-wedding-planner-tenants
+#   wrangler kv key put --binding TENANTS "tenant:https://cms1.example.com" \
+#     '{"secret":"<32-byte hex, unique per CMS>","signKey":"<32-byte hex>"}'
+# [[kv_namespaces]]
+# binding = "TENANTS"
+# id = "<kv-id>"
+
+[vars]
+# Base URL of the CMS Worker — where this plugin reaches the Plugin API
+# ({CMS_URL}/__cms/*, page read/write). In multi-tenant mode, per-tenant cmsUrl
+# comes from the TENANTS record instead.
+CMS_URL = "https://cms.eventuai.com"

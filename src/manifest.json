@@ -1,0 +1,48 @@
+{
+  "id": "wedding-planner",
+  "name": "Wedding Planner",
+  "version": "0.1.0",
+  "i18n": true,
+  "hooks": [],
+  "nav": [
+    { "label": "Weddings", "href": "weddings", "roles": ["admin", "editor", "moderator"] }
+  ],
+  "permissions": [
+    { "value": "wedding-planner:view", "label": "Wedding planner: view weddings, checklists, budgets and rundowns" },
+    { "value": "wedding-planner:write", "label": "Wedding planner: create and edit weddings, checklists, budgets and rundowns" }
+  ],
+  "credits": [
+    { "key": "create_wedding", "label": "Create a wedding", "description": "Charged when a new wedding page is created, including its seeded checklist and budget. Free until priced.", "charge": "page_create", "page_type": "wedding" },
+    { "key": "create_wedding_task", "label": "Add a checklist task", "description": "Charged per checklist task created, including seeded template tasks. Free until priced.", "charge": "page_create", "page_type": "wedding_task" },
+    { "key": "create_budget_item", "label": "Add a budget item", "description": "Charged per budget item created, including seeded template items. Free until priced.", "charge": "page_create", "page_type": "budget_item" },
+    { "key": "create_rundown_item", "label": "Add a rundown item", "description": "Charged per wedding-day rundown item created, including generated template items. Free until priced.", "charge": "page_create", "page_type": "rundown_item" },
+    { "key": "delete_wedding", "label": "Delete a wedding", "description": "Charged per wedding cascade-delete operation. Free until priced.", "charge": "metered", "unit": "operation" }
+  ],
+  "limits": [
+    { "key": "max_weddings", "label": "Maximum weddings", "description": "Total number of weddings.", "page_type": "wedding", "scope": "total" },
+    { "key": "max_tasks_per_wedding", "label": "Checklist tasks per wedding", "description": "Checklist tasks attached to a single wedding.", "page_type": "wedding_task", "scope": "per_pointer", "pointer_key": "wedding" },
+    { "key": "max_budget_items_per_wedding", "label": "Budget items per wedding", "description": "Budget items attached to a single wedding.", "page_type": "budget_item", "scope": "per_pointer", "pointer_key": "wedding" },
+    { "key": "max_rundown_items_per_wedding", "label": "Rundown items per wedding", "description": "Rundown items attached to a single wedding.", "page_type": "rundown_item", "scope": "per_pointer", "pointer_key": "wedding" }
+  ],
+  "assets": [],
+  "contentTypes": {
+    "blueprint": {
+      "wedding": [
+        "@partner1", "@partner2", "@checklist_language",
+        "@scope_registry:switch", "@scope_church:switch", "@scope_overseas:switch",
+        "@scope_banquet:switch", "@scope_honeymoon:switch", "@scope_newhome:switch",
+        "@budget_total", "name:text/title", "notes:textarea"
+      ],
+      "wedding_task": [
+        "*wedding", "@category", "@due", "@due_day", "@time", "@done:switch",
+        "@vendor", "name:text/title", "notes:textarea"
+      ],
+      "budget_item": [
+        "*wedding", "@category", "@budget", "@paid", "name:text/title", "notes:textarea"
+      ],
+      "rundown_item": [
+        "*wedding", "@time", "@owner", "name:text/title", "notes:textarea"
+      ]
+    }
+  }
+}
