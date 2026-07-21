@@ -26,10 +26,9 @@ binding = "CF_VERSION_METADATA"
 #   wrangler kv namespace create cms-plugin-wedding-planner-tenants
 #   wrangler kv key put --binding TENANTS "tenant:https://cms1.example.com" \
 #     '{"secret":"<32-byte hex, unique per CMS>","signKey":"<32-byte hex>"}'
-# [[kv_namespaces]]
-# binding = "TENANTS"
-# id = "REPLACE_WITH_ID_FROM_npm_run_kv_setup"
-# preview_id = "REPLACE_WITH_ID_FROM_npm_run_kv_setup_preview"
+[[kv_namespaces]]
+binding = "TENANTS"
+id = "d1d90740af054f68a7e2cf95cd52df89"
 
 [vars]
 # Base URL of the CMS Worker — where this plugin reaches the Plugin API
