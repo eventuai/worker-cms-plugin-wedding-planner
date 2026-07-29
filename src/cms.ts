@@ -21,6 +21,13 @@ import {
   CmsApiError,
   CmsNotConfiguredError,
 } from '@lionrockjs/worker-cms-plugin';
+import {
+  creditShortfall,
+  withCredits,
+  type CmsCreditCurrency,
+  type CmsCreditMethods,
+  type CmsCreditShortfall,
+} from '@lionrockjs/worker-cms-plugin-decorator-credits';
 
 /** Manifest id — must equal MANIFEST.id and the CMS-registered plugin id. */
 export const PLUGIN_ID = 'wedding-planner';
@@ -41,6 +48,9 @@ export {
   type CmsClientEnv,
   type CmsPage,
   type CmsPageInput,
+  creditShortfall,
+  type CmsCreditCurrency,
+  type CmsCreditShortfall,
 };
 
 /**
@@ -58,6 +68,11 @@ function selectorFields(selector: CollectionSelector): Record<string, unknown> {
 }
 
 export class CmsClient extends BaseCmsClient {
+  declare credits: CmsCreditMethods['credits'];
+  declare creditQuote: CmsCreditMethods['creditQuote'];
+  declare chargeCredits: CmsCreditMethods['chargeCredits'];
+  declare reportCreditUsage: CmsCreditMethods['reportCreditUsage'];
+
   /** The base `call`/`json` are private, so the extensions keep their own copy of the link config. */
   private readonly link: { base: string; secret: string };
   private actingUserId: string | null = null;
@@ -72,6 +87,7 @@ export class CmsClient extends BaseCmsClient {
       fetcher: (input, init) => globalThis.fetch(input, this.withActingUser(init)),
     });
     this.link = { base: (env.CMS_URL ?? '').replace(/\/+$/, ''), secret: env.PLUGIN_SECRET ?? '' };
+    return withCredits(this);
   }
 
   /**
@@ -81,7 +97,7 @@ export class CmsClient extends BaseCmsClient {
    */
   actAs(userId: string | number | null | undefined): this {
     this.actingUserId = userId === null || userId === undefined || userId === '' ? null : String(userId);
-    return this;
+    return withCredits(this);
   }
 
   get hasActingUser(): boolean {
@@ -153,36 +169,6 @@ export class CmsClient extends BaseCmsClient {
     };
   }
 
-  /**
-   * Reports metered usage for a manifest-declared cost (CMS `POST
-   * /__cms/credits/charge`). The host prices it from its own configuration and
-   * deducts from the acting user.
-   */
-  async chargeUsage(
-    key: string,
-    quantity: number,
-    opts: { entityType?: string; entityId?: string | number; note?: string } = {},
-  ): Promise<void> {
-    const response = await globalThis.fetch(`${this.link.base}/__cms/credits/charge`, {
-      method: 'POST',
-      headers: this.linkHeaders({ 'content-type': 'application/json' }),
-      body: JSON.stringify({
-        key,
-        quantity,
-        entity_type: opts.entityType,
-        entity_id: opts.entityId,
-        note: opts.note,
-      }),
-    });
-    if (!response.ok) {
-      const code = await response.text()
-        .then((text) => {
-          try { return (JSON.parse(text) as { error?: string }).error || 'error'; } catch { return text.trim().slice(0, 160) || 'error'; }
-        })
-        .catch(() => 'error');
-      throw new CmsApiError(response.status, code, 'POST', '/credits/charge');
-    }
-  }
 }
 
 /** Charges a metered credit action, tolerating an unpriced/unavailable credits API. */
@@ -194,7 +180,7 @@ export async function chargeCreditAction(
 ): Promise<void> {
   if (!cms.hasActingUser || quantity <= 0) return;
   try {
-    await cms.chargeUsage(key, quantity, opts);
+    await cms.chargeCredits(key, quantity, opts);
   } catch (error) {
     if (error instanceof CmsApiError && error.status === 402) throw error;
     console.error(`[wedding-planner] ${key} charge failed (non-blocking)`, error);

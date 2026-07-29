@@ -14,6 +14,7 @@ import {
   CmsClient,
   CmsApiError,
   CmsNotConfiguredError,
+  creditShortfall,
 } from './cms';
 import { cmsUserId, forbidden, weddingAdminAccessForRequest } from './permissions';
 import { adminView } from './templates/views';
@@ -277,9 +278,11 @@ async function handleAdmin(request: Request, env: PluginEnv, url: URL): Promise<
         );
       }
       if (error.code === 'insufficient_credits') {
+        const shortfall = creditShortfall(error);
+        const money = shortfall?.currency === 'diamond' ? 'diamonds' : 'credits';
         return errorPanel(
           env.VIEWS,
-          'You do not have enough credits for this action, so nothing was changed. Check your balance on your profile page, or ask an administrator to top it up.',
+          `You do not have enough ${money} for this action, so nothing was changed. Check your balance on your profile page, or ask an administrator to top it up.`,
           false,
           jsonOnly,
         );
