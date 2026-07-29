@@ -278,8 +278,6 @@ async function handleAdmin(request: Request, env: PluginEnv, url: URL): Promise<
         );
       }
       if (error.code === 'insufficient_credits') {
-        // The host meters two wallets and says which one fell short, so the
-        // message names what to top up rather than always saying "credits".
         const shortfall = creditShortfall(error);
         const money = shortfall?.currency === 'diamond' ? 'diamonds' : 'credits';
         return errorPanel(
